@@ -1,5 +1,10 @@
-const requestApi = ``;
+const requestApi = `api.openweathermap.org/data/2.5/weather?q=${city+Name}&appid=${APIKey}`
 
-fetch('http://example.com/movies.json')
-  .then(response => response.json())
-  .then(data => console.log(data));
+const responseText = document.getElementById('#responseText');
+
+function getAPI(requestApi){
+  fetch(requestApi)
+  .then(function (responseText) {
+console.log(responseText.status);
+  })
+}
