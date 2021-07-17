@@ -1,0 +1,9 @@
+h1 {
+    background-image: linear-gradient(to right, blue, black);
+}
+
+#searchBtn{
+    width: 5px;
+    height: 25px;
+}
+
