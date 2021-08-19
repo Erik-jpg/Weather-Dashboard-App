@@ -1,3 +1,8 @@
+body {
+    margin: 25px;
+    display: flex;
+}
+
 h1 {
     background-image: linear-gradient(to right, blue, black);
 }
@@ -7,3 +12,22 @@ h1 {
     height: 25px;
 }
 
+.card {
+    padding: 1rem;
+    border: 1px solid black;
+    margin: 1rem;
+    }
+
+
+    @media (max-width:1400px) {
+        body {
+            margin: 10px;
+        }
+    }
+
+@media (max-width: 1024px) {
+    body {
+        margin: 0px;
+        flex-direction: column;
+    }
+}

@@ -26,7 +26,7 @@
                     <div class="input-group-addon">
                         <button id="searchBtn" type="button" class="box">Search<i class="fas fa-search"></i></button>
                     </div>
-                    <button class="btn btn-primary" type="button" id="clearHistoryButton">Delete Search History</button>
+                    <button class="btn btn-primary" type="button" id="clearHistBtn">Delete Search History</button>
                     <form id="search-history"></form>
                 </div>
             </div>
@@ -37,20 +37,23 @@
             <div class="col-lg-11 border border-dark rounded">
                 <div class="row">
                     <div class="col-12">
-                        <span class="city-name align-middle" id="city-name"></span>
-                        <img id="weather-img" src="http://placehold.it/" alt="">
-                        <div class="row">
-                            <div class="col-12">
-                                <p>temperature</p>
-                                <div class="row">
-                                    <div class="col-lg-11">
-                                        <p>humidity</p>
-                                        <div class="row">
-                                            <div class="col-lg-11">
-                                                <p>wind</p>
-                                                <div class="row">
-                                                    <div class="col-lg-11">
-                                                        <p>UV-index</p>
+                        <span class="city-name align-middle" id="cityName"></span>
+                        <div class="col-12">
+                            <p id="date">date</p>
+                            <img id="weatherImg" src="http://placehold.it/" alt="">
+                            <div class="row">
+                                <div class="col-12" id="currentDay">
+                                    <p id="temp">temperature</p>
+                                    <div class="row">
+                                        <div class="col-lg-11">
+                                            <p id="hum">humidity</p>
+                                            <div class="row">
+                                                <div class="col-lg-11">
+                                                    <p id="wind">wind</p>
+                                                    <div class="row">
+                                                        <div class="col-lg-11">
+                                                            <p id="UV">UV-index</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -76,6 +79,7 @@
             </div>
         </div>
     </div>
+
 
 
 
