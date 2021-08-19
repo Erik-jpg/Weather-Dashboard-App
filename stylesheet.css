@@ -12,6 +12,10 @@ h1 {
     height: 25px;
 }
 
+#todayCard .div.col-12 {
+    margin: 50px;
+}
+
 .card {
     padding: 1rem;
     border: 1px solid black;
