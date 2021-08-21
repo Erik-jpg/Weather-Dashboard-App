@@ -7,6 +7,10 @@ h1 {
     background-image: linear-gradient(to right, blue, black);
 }
 
+#banner {
+    max-width: 100%;
+}
+
 #searchBtn{
     width: 5px;
     height: 25px;
