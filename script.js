@@ -10,21 +10,30 @@
   // const todayHum = document.querySelector('#hum');
   // const todayWind = document.querySelector('#wind');
   // const todayUV = document.querySelector('#UV');
+  const statusMessage = document.querySelector('#statusMessage');
   const searchHistory = document.querySelector('search-history');
   const historySearch = JSON.parse(localStorage.getItem('history')) || [];
   const timeZoneOffSet=0
   console.log(historySearch);
-  const APIKey = '275ec7e571f195102e2e5dc7ea6b79ff';
+  const APIKey = 'd888e695283db928ef9b9fd7d40936fc';
 
 
-function generateMeteorologist (e) {
-  e.preventDefault()
-  console.log(cityInputBar.value)
-    const requestUrl = `https://api.openweathermap.org/data/a.5/weather?q=${cityInputBar}+&appid=${APIKey}&units=imperial`;
+const generateMeteorologist = () => {
+  // e.preventDefault()
+  console.log(cityInputBar.value);
+    const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}`;
     fetch(requestUrl)
-    .then(function (){
-      console.log('ok');
-    }).catch(function(){
+    .then((response) => {
+    if (response.status === 404) {
+      const errorMessage = document.createElement('h1');
+      errorMessage.id = 'errorMessage';
+      errorMessage.textContent = 'There seems to have been an error, please re-enter a city.';
+      statusMessage.appendChild(errorMessage);
+      return;
+    }
+    return response.jason();
+  });
+
       console.log('error');
       // const coordinates= data.coordinates
       // const Latitude = coordinates.Latitude
@@ -62,7 +71,7 @@ function generateMeteorologist (e) {
     
     todayImg.setAttribute("src", `https://openweathermap.org/img/w/${data.weather[0].icon}.png`);
     console.log('todayImg');
-
+    console.log('error');
     currentWeather.appendChild(todayCard)
     todayCard.appendChild(today)
     today.appendChild(todayTitle)
@@ -73,16 +82,17 @@ function generateMeteorologist (e) {
     today.appendChild(todayWind)
     today.appendChild(todayUV)
 
-    })
+    
     if(historySearch.indexOf(cityInputBar.value)=== -1) {
       historySearch.push(cityInputBar.value);
       localStorage.setItem(historySearch, JSON.stringify(historySearch));
+      console.log('history saved');
     }
-}
+  };
 
 function fiveDayForcast(e){
   e.preventDefault()
-  const weeklyUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInputBar}&appid=${APIKey}&units=imperial`
+  const weeklyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIkey}&units=imperial`;
   fetch(weeklyUrl)
     .then(function (){
       console.log('ok');
@@ -158,4 +168,5 @@ function addToSearchHistory(){
 
 addToSearchHistory()
 searchBtn.addEventListener('click', generateMeteorologist)
+
 searchBtn.addEventListener('click', fiveDayForcast)
