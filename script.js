@@ -1,20 +1,11 @@
   const cityInputBar = document.querySelector('#cityInputBar');
   const searchBtn = document.querySelector('#searchBtn');
   const clearHistBtn = document.querySelector('#clearHistBtn');
-  // const todayCard = document.querySelector('#todayCard');
-  // const cityName = document.querySelector('#cityName');
-  // const date = document.querySelector('#date');
-  // const today = document.querySelector('#currentDay');
-  // const todayImg = document.querySelector('#weatherImg');
-  // const todayTemp = document.querySelector('#temp');
-  // const todayHum = document.querySelector('#hum');
-  // const todayWind = document.querySelector('#wind');
-  // const todayUV = document.querySelector('#UV');
   const statusMessage = document.querySelector('#statusMessage');
   const searchHistory = document.querySelector('search-history');
   const historySearch = JSON.parse(localStorage.getItem('history')) || [];
   const timeZoneOffSet=0
-  console.log(historySearch);
+  
   const APIKey = 'd888e695283db928ef9b9fd7d40936fc';
 
 
@@ -34,7 +25,7 @@ const generateMeteorologist = () => {
     return response.jason();
   });
 
-      console.log('error');
+      
       // const coordinates= data.coordinates
       // const Latitude = coordinates.Latitude
       // const Longitude = coordinates.Longitude
@@ -57,6 +48,7 @@ const generateMeteorologist = () => {
     todayWind.classList = 'card-text'
     todayHum.classList = 'card-text'
     todayUV.classList = 'card-text'
+    console.log('card-text', todayTitle);
     todayTitle = 'card-text'
     todayWeatherNow = 'card-text'
     
@@ -99,46 +91,46 @@ function fiveDayForcast(e){
     }).catch(function(){
       console.log('error');
     for (let i = 0; i < data.list.length; i++) {
-      const today = document.querySelector('#currentDay');
-      const todayCard = document.createElement('div')
-      const todayBody = document.createElement('div')
-      const todayImg = document.createElement('img')
-      const todayTemp = document.createElement('h6')
-      const todayHum = document.createElement('h6')
-      const todayWind = document.createElement('h6')
-      const todayUV = document.createElement('h6')
-      const todayTitle = document.createElement('h2')
-      const todayWeatherNow = document.createElement('h3')
+      const fiveDay = document.querySelector('#currentDay');
+      const fiveDayCard = document.createElement('div')
+      const fiveDayBody = document.createElement('div')
+      const fiveDayImg = document.createElement('img')
+      const fiveDayTemp = document.createElement('h6')
+      const fiveDayHum = document.createElement('h6')
+      const fiveDayWind = document.createElement('h6')
+      const fiveDayUV = document.createElement('h6')
+      const fiveDayTitle = document.createElement('h2')
+      const fiveDayWeatherNow = document.createElement('h3')
       const currentDateAndTime = document.createElement('h4')
 
-      todayCard.classList = 'card'
-      todayBody.classList = 'card-body'
-      todayTemp.classList = 'card-text'
-      todayWind.classList = 'card-text'
-      todayHum.classList = 'card-text'
-      todayUV.classList = 'card-text'
-      todayTitle = 'card-text'
-      todayWeatherNow = 'card-text'
+      fiveDayCard.classList = 'card'
+      fiveDayBody.classList = 'card-body'
+      fiveDayTemp.classList = 'card-text'
+      fiveDayWind.classList = 'card-text'
+      fiveDayHum.classList = 'card-text'
+      fiveDayUV.classList = 'card-text'
+      fiveDayTitle = 'card-text'
+      fiveDayWeatherNow = 'card-text'
       currentDateAndTime = 'card-text'
 
-      todayTitle.textContent = data.city.cityName;
+      fiveDayTitle.textContent = data.city.cityName;
       currentDateAndTime.textContent = cityTime(data.list[i].dt+adjustForTimeZone);
-      todayTemp.textContent = data.list[i].main.temp
-      todayHum.textContent = data.list[i].main.humidity
-      todayWind.textContent = data.list[i].wind.speed
+      fiveDayTemp.textContent = data.list[i].main.temp
+      fiveDayHum.textContent = data.list[i].main.humidity
+      fiveDayWind.textContent = data.list[i].wind.speed
 
-      todayImg.setAttribute("src", `https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`);
-    console.log('todayImg');
+      fiveDayImg.setAttribute("src", `https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`);
+    console.log('fiveDayImg');
 
     currentWeather.appendChild(today)
-    todayCard.appendChild(todayBody)
-    today.appendChild(todayTitle)
-    today.appendChild(currentDateAndTime)
-    todayTitle.appendChild(todayImg)
-    today.appendChild(todayTemp)
-    today.appendChild(todayHum)
-    today.appendChild(todayWind)
-    today.appendChild(todayUV)
+    fiveDayCard.appendChild(fiveDayBody)
+    fiveDay.appendChild(fiveDayTitle)
+    fiveDay.appendChild(currentDateAndTime)
+    fiveDayTitle.appendChild(fiveDayImg)
+    fiveDay.appendChild(fiveDayTemp)
+    fiveDay.appendChild(fiveDayHum)
+    fiveDay.appendChild(fiveDayWind)
+    fiveDay.appendChild(fiveDayUV)
       
     }
   })
@@ -163,7 +155,7 @@ function addToSearchHistory(){
     li.textContent = historySearch[i]
     weatherCards.appendChild(li)
     searchHistory.appendChild(historyBtn)
-  }
+  }console.log(historySearch);
 }
 
 addToSearchHistory()
