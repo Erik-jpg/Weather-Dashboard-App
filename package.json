@@ -1,0 +1,24 @@
+{
+  "name": "weather-dashboard-app",
+  "version": "1.0.0",
+  "description": "This is a Weather Dashboard App that only uses html, css, JavaScript, jQuery and a Weather API called Open Weather\r This homework has the following functions:\r The app is able to search for a city and display the current weather along with a five day forcast.\r The displayed weather cards will have: the city name, the date, an icon to represent weather conditions, the temperature, the humidity, wind speed, and the UV index.\r the UV index will be expandable and then using a color system, display if it is favorable, moderate, or severe.\r The five day forcast cards will display: the date, an icon representing weather conditions, the temperature, the humidity, wind speed.\r This app will also allow the user to use a search history, that will show the current and future weather conditions.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Erik-jpg/Weather-Dashboard-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Erik-jpg/Weather-Dashboard-App/issues"
+  },
+  "homepage": "https://github.com/Erik-jpg/Weather-Dashboard-App#readme",
+  "dependencies": {
+    "js": "^0.1.0",
+    "node": "^16.6.1"
+  }
+}

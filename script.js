@@ -22,25 +22,29 @@ const generateMeteorologist = () => {
       statusMessage.appendChild(errorMessage);
       return;
     }
-    return response.jason();
-  });
+    return response.JSON;
+  })
+  .then((data) => {
+    console.log(data);
+
+  })
 
       
-      // const coordinates= data.coordinates
-      // const Latitude = coordinates.Latitude
-      // const Longitude = coordinates.Longitude
+      const coordinates= data.coordinates
+      const Latitude = coordinates.Latitude
+      const Longitude = coordinates.Longitude
     const today = document.querySelector('#currentDay')
     today.innerHTML=""
 
-    const todayCard = document.createElement('div')
-    const todayBody = document.createElement('div')
-    const todayImg = document.createElement('img')
-    const todayTemp = document.createElement('h6')
-    const todayHum = document.createElement('h6')
-    const todayWind = document.createElement('h6')
-    const todayUV = document.createElement('h6')
-    const todayTitle = document.createElement('h2')
-    const todayWeatherNow = document.createElement('h3')
+   let todayCard = document.createElement('div')
+   let todayBody = document.createElement('div')
+   let todayImg = document.createElement('img')
+   let todayTemp = document.createElement('h6')
+   let todayHum = document.createElement('h6')
+   let todayWind = document.createElement('h6')
+   let todayUV = document.createElement('h6')
+   let todayTitle = document.createElement('h2')
+   let todayWeatherNow = document.createElement('h3')
 
     todayCard.classList = 'card'
     todayBody.classList = 'card-body'
@@ -53,7 +57,7 @@ const generateMeteorologist = () => {
     todayWeatherNow = 'card-text'
     
 
-    todayTitle.textContent = data.cityName;
+    todayTitle.textContent = data.city.name;
     todayWeatherNow.textContent= data.weather;
     todayTemp.textContent = data.main.temp;
     todayHum.textContent = data.main.humidity;
@@ -84,7 +88,7 @@ const generateMeteorologist = () => {
 
 function fiveDayForcast(e){
   e.preventDefault()
-  const weeklyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIkey}&units=imperial`;
+  const weeklyUrl = `https://api.openweathermap.org/data/2.5/onecall?latitude=${latitude}&lonitude=${lonitude}&appid=${APIkey}&units=imperial`;
   fetch(weeklyUrl)
     .then(function (){
       console.log('ok');
