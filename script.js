@@ -26,13 +26,14 @@ const generateMeteorologist = () => {
   })
   .then((data) => {
     console.log(data);
-
-  })
+ 
+  
 
       
-      const coordinates= data.coordinates
-      const Latitude = coordinates.Latitude
-      const Longitude = coordinates.Longitude
+      const coordinates= data.coordinates;
+      const Latitude = coordinates.Latitude;
+      const Longitude = coordinates.Longitude;
+
     const today = document.querySelector('#currentDay')
     today.innerHTML=""
 
@@ -84,7 +85,8 @@ const generateMeteorologist = () => {
       localStorage.setItem(historySearch, JSON.stringify(historySearch));
       console.log('history saved');
     }
-  };
+  })
+};
 
 function fiveDayForcast(e){
   e.preventDefault()
