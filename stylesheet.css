@@ -20,12 +20,17 @@ h1 {
     margin: 50px;
 }
 
-.card {
+.weatherTodayCard {
     padding: 1rem;
     border: 1px solid black;
     margin: 1rem;
     }
 
+    #fiveDayForecast {
+        padding: 1rem;
+        border: 1px solid black;
+        margin: 100px;
+        }
 
     @media (max-width:1400px) {
         body {
