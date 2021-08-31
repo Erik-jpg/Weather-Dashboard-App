@@ -3,9 +3,10 @@ const searchBtn = document.querySelector("#searchBtn");
 const clearHistBtn = document.querySelector("#clearHistBtn");
 const statusMessage = document.querySelector("#statusMessage");
 const searchHistory = document.querySelector("search-history");
-const historySearch = JSON.parse(localStorage.getItem("history")) || [];
-const timeZoneOffSet = 0;
+
+
 let todayUV = document.createElement("h6");
+let toDayTemp = document.createElement("h6");
 
 const APIKey = "d888e695283db928ef9b9fd7d40936fc";
 
@@ -39,26 +40,23 @@ const generateMeteorologist = () => {
       let todayCard = document.createElement("div");
       let todayBody = document.createElement("div");
       let todayImg = document.createElement("img");
-      let todayTemp = document.createElement("h6");
       let todayHum = document.createElement("h6");
       let todayWind = document.createElement("h6");
-      
       let todayTitle = document.createElement("h2");
       let todayWeatherNow = document.createElement("h3");
 
       todayCard.classList = "card";
       todayBody.classList = "card-body";
-      todayTemp.classList = "card-text";
+      toDayTemp.classList = "card-text";
       todayWind.classList = "card-text";
       todayHum.classList = "card-text";
       todayUV.classList = "card-text";
       console.log("card-text", todayTitle);
-      todayTitle.classList = "card-text";
+      todayTitle.classList = "container card-text";
       todayWeatherNow.classList = "card-text";
 
       todayTitle.textContent = data.name;
       todayWeatherNow.textContent = data.weather[0].description;
-      todayTemp.textContent = data.main.temp;
       todayHum.textContent = data.main.humidity;
       todayWind.textContent = data.wind.speed + "MPH" + "windspeed";
       
@@ -71,23 +69,23 @@ const generateMeteorologist = () => {
         `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
       );
       
-      console.log("error");
-      
       todayBody.append(todayImg);
       todayBody.append(todayTitle);
       todayBody.append(todayWeatherNow);
-      todayBody.append(todayTemp);
+      todayBody.append(toDayTemp);
       todayBody.append(todayHum);
       todayBody.append(todayWind);
       todayBody.append(todayUV);
       todayCard.append(todayBody);
       today.append(todayCard);
 
-      if (historySearch.indexOf(cityInputBar.value) === -1) {
-        historySearch.push(cityInputBar.value);
-        localStorage.setItem(historySearch, JSON.stringify(historySearch));
-        console.log("history saved");
-      }
+      // if (historySearch.indexOf(searchHistory) === -1) {
+      //   let historySearch = JSON.parse(localStorage.getItem(city)) || [];
+      //   const city = localStorage.getItem(city);
+      //   historySearch.push(city);
+      //   localStorage.setItem(historySearch, JSON.stringify(city));
+      //   console.log("history saved");
+      // }
     });
 };
 
@@ -129,6 +127,7 @@ return response.json();
         fiveDayHum.textContent = data.daily[i].humidity;
         fiveDayWind.textContent = data.daily[i].wind_speed;
         todayUV.textContent = data.current.uvi;
+        toDayTemp.textContent = data.daily[0].temp.day;
 
         fiveDayImg.setAttribute(
           "src",
@@ -150,30 +149,55 @@ return response.json();
     });
 }
 
-function addToSearchHistory() {
-  for (let i = 0; i < historySearch.length; i++) {
-    const weatherCards = document.querySelector("#weatherCards");
-    const searchHistory = document.querySelector("#searchHistory");
-    const li = document.createElement("li");
-    const historyBtn = document.createElement("button");
-    li.classList = "searchedCities";
-    historyBtn.setAttribute("searchedHistory", historySearch[i]);
-    historyBtn.textContent = "searchedCities";
-    historyBtn.classList = "button is-primary";
-    historyBtn.addEventListener("click", function (e) {
-      console.log(e.target.getAttribute("searchedHistory"));
-      searchText.value = e.target.getAttribute("searchedHistory");
-      generateMeteorologist(e);
-      fiveDayForcast(e);
-    });
-    li.textContent = historySearch[i];
-    weatherCards.append(li);
-    searchHistory.append(historyBtn);
+displayHistory();
+
+function preventDefault() {};
+
+//this is saving history of the searched cities
+function handleHistory() {
+  let searchHistory = JSON.parse(localStorage.getItem("historySearch")) || [];
+  const cityName = document.querySelector('#cityInputBar').value;
+  const historyObject = {city:cityName};
+  searchHistory.push(historyObject);
+  localStorage.setItem("historySearch", JSON.stringify(searchHistory));
+  
+  console.log('History saved');
+};
+
+//This is to view the searched cities
+function displayHistory() {
+  const retrieveHistory = JSON.parse(localStorage.getItem("historySearch")) || [];
+  document.querySelector("#historyKey").innerHTML = "";
+  for (let i =0; i < retrieveHistory.length; i++){
+    const element = retrieveHistory[i];
+    let li = document.createElement("li");
+    li.textContent = element.retrieveHistory;
+    document.querySelector("#historyKey").append(li);
+    console.log('viewing history');
   }
-  console.log(historySearch);
 }
 
-addToSearchHistory();
-searchBtn.addEventListener("click", generateMeteorologist);
+// This is to check to see if the user has any previous history
+function checkForHistory() {
+  if (localStorage.getItem("historySearch")!== null) {
+    const city = localStorage.getItem("cityName");
+    historySearch.value = "your, " + city;
+  }
+}
 
-// searchBtn.addEventListener('click', fiveDayForcast)
+function deleteHistory() {
+  localStorage.clear();
+}
+
+
+searchBtn.addEventListener("click", everythingToDo);
+
+clearHistBtn.addEventListener('click', deleteHistory);
+
+function everythingToDo() {
+  generateMeteorologist();
+  handleHistory();
+  displayHistory();
+  // checkForHistory();
+  preventDefault();
+}

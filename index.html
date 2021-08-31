@@ -1,93 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+    <title>Weather Dashboard</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link type="text/css" src="./stylesheet.css">
-    </link>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./style.css"></link>
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="container is-fluid">Weather Dashboard
-            <div class="hero is-small is-warning">
-            </div>
-        </div>
+    <nav class="banner" id="nav">
+        <div class="banner">Weather Dashboard</div>
     </nav>
-    <div class="container-fluid">
+    <div id="search-box">
         <div class="column">
             <div>
                 <p id="statusMessage">See the weather for a city!</p>
                 <div city="city-input-group">
                     <input id="cityInputBar" type="text"
                         placeholder="Please enter the name of the city that you would like to see the weather of..."></input>
-                    <div class="input-group-addon">
-                        <button id="searchBtn" type="button" class="button is-dark">Search</button>
+                    <div class="buttonDiv">
+                        <button id="searchBtn" type="button">Search</button>
                     </div>
-                    <button class="btn btn-primary" type="button" id="clearHistBtn">Delete Search History</button>
+                    <button type="button" id="clearHistBtn">Delete Search History</button>
                     <form id="search-history"></form>
                 </div>
             </div>
         </div>
     </div>
+    <div class="container" id="currentDay"></div>
+    <hr>
+    <h3>Five Day Forecast</h3>
 
-    <div class="weatherTodayCard">
-        <div class="card-content">
-            <div class="weather-content">
-                <div class="wather-left">
-                    <div id="todayCard">
-                        <div class="city-name" id="cityName">
-                            <div class="card-image" id="todayImg">
-                                <p id="date">date</p>
-                                <div class="row">
-                                    <div id="currentDay">
-                                        <p id="temp">temperature</p>
-                                        <div>
-                                            <div>
-                                                <p id="hum">humidity</p>
-                                                <div>
-                                                    <div>
-                                                        <p id="wind">wind</p>
-                                                        <div>
-                                                            <div>
-                                                                <p id="UV">UV-index</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
+    <div class="card fiveDayForecast" id="weekCard">
+        <div class="card" id="dayOne"></div>
+        <div class="card" id="dayTwo"></div>
+        <div class="card" id="dayThree"></div>
+        <div class="card" id="dayFour"></div>
+        <div class="card" id="dayFive"></div>
+    </div>
+    <ul class="card" id="weatherCards">
+    </ul>
 
-            <h3>Five Day Forecast</h3>
+    <ul class="card" id="historyKey">
+    </ul>
 
-            <div class="row" id="fiveDayForecast">
-                <div class="card" id="dayOne"></div>
-                <div class="card" id="dayTwo"></div>
-                <div class="card" id="dayThree"></div>
-                <div class="card" id="dayFour"></div>
-                <div class="card" id="dayFive"></div>
-            </div>
-            <ul class="card" id="weatherCards">
-            </ul>
 
-            <ul class="card" id="searchHistory">
-            </ul>
-
-        </div>
-        <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="./script.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,88 @@
+
+
+.card-body{
+    width: 25px;
+    box-shadow: 0 4px 8px 0;
+    border-radius: 5px;
+}
+.container{
+    width: 25px;
+    box-shadow: 0 4px 8px 0;
+    border-radius: 5px;
+}
+
+.banner {
+    max-width: 100%;
+    min-width: 100%;
+    background-image: linear-gradient(to right, blue, black);
+    color: white;
+    text-align: center;
+    height: 75px;
+    font-size: 50px;
+}
+
+#cityInputBar{
+    text-align: center;
+    margin-left: 600px;
+    margin-right: auto;
+}
+
+#clearHistBtn{
+    margin-right: center;
+    margin-left: 600px;
+}
+
+#search-box {
+    background-image: linear-gradient(to right, lightblue, lightgreen);
+}
+
+#searchBtn{
+    width: 60px;
+    height: 25px;
+    margin-left: 650px;
+    margin-right: auto;
+}
+
+#statusMessage {
+    text-align: center;
+    color:cornflowerblue;
+    font-size:25px;
+}
+
+#currentDay{
+    box-shadow: 0 4px 8px 0;
+    border-radius: 5px;
+}
+
+.fiveDayForecast {
+    padding: 5rem;
+    border: 5px solid black;
+    margin: 50px;
+    max-width: 25px;
+    box-shadow: 0 4px 8px 0;
+    border-radius: 5px;
+        }
+
+#dayOne {
+    padding: 5rem;
+    border: 5px solid black;
+    margin: 50px;
+    max-width: 25px;
+    box-shadow: 0 4px 8px 0;
+    border-radius: 5px;
+}        
+
+
+
+    @media (max-width:1400px) {
+        body {
+            margin: 10px;
+        }
+    }
+
+@media (max-width: 1024px) {
+    body {
+        margin: 0px;
+        flex-direction: column;
+    }
+}
