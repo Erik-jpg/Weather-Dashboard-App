@@ -13,7 +13,10 @@
 
 <body>
     <nav class="navbar">
-        <div class="hero is-small is-black">Weather Dashboard</div>
+        <div class="container is-fluid">Weather Dashboard
+            <div class="hero is-small is-warning">
+            </div>
+        </div>
     </nav>
     <div class="container-fluid">
         <div class="column">
@@ -39,19 +42,20 @@
                     <div id="todayCard">
                         <div class="city-name" id="cityName">
                             <div class="card-image" id="todayImg">
-                            <p id="date">date</p>
-                            <div class="row"><p>Temperature</p>
-                                <div id="currentDay">
-                                    <p id="temp">temperature</p>
-                                    <div><p>Humidity</p>
+                                <p id="date">date</p>
+                                <div class="row">
+                                    <div id="currentDay">
+                                        <p id="temp">temperature</p>
                                         <div>
-                                            <p id="hum">humidity</p>
-                                            <div><p>Wind</p>
+                                            <div>
+                                                <p id="hum">humidity</p>
                                                 <div>
-                                                    <p id="wind">wind</p>
-                                                    <div><p>UV Index</p>
+                                                    <div>
+                                                        <p id="wind">wind</p>
                                                         <div>
-                                                            <p id="UV">UV-index</p>
+                                                            <div>
+                                                                <p id="UV">UV-index</p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -65,26 +69,25 @@
                 </div>
             </div>
         </div>
-    </div>
-<div>
-    
-    <h3>Five Day Forecast</h3>
+        <div>
 
-<div class="row" id="fiveDayForecast">
-    <div class="card" id="dayOne"></div>
-    <div class="card" id="dayTwo"></div>
-    <div class="card" id="dayThree"></div>
-    <div class="card" id="dayFour"></div>
-    <div class="card" id="dayFive"></div>
-</div>
-<ul class="card" id="weatherCards">
-</ul>
+            <h3>Five Day Forecast</h3>
 
-<ul class="card" id="searchHistory">
-</ul>
+            <div class="row" id="fiveDayForecast">
+                <div class="card" id="dayOne"></div>
+                <div class="card" id="dayTwo"></div>
+                <div class="card" id="dayThree"></div>
+                <div class="card" id="dayFour"></div>
+                <div class="card" id="dayFive"></div>
+            </div>
+            <ul class="card" id="weatherCards">
+            </ul>
 
-</div>
-<script type="text/javascript" src="./script.js"></script>
+            <ul class="card" id="searchHistory">
+            </ul>
+
+        </div>
+        <script type="text/javascript" src="./script.js"></script>
 </body>
 
 </html>

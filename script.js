@@ -102,7 +102,7 @@ return response.json();
       console.log(data);
       
       for (let i = 0; i < data.daily.length; i++) {
-        let fiveDay = document.querySelector("#fiveDayForecast");
+        let fiveDay = document.querySelector("#dayOne");
         let fiveDayCard = document.createElement("div");
         let fiveDayBody = document.createElement("div");
         let fiveDayImg = document.createElement("img");

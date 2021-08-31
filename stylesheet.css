@@ -7,6 +7,10 @@ h1 {
     background-image: linear-gradient(to right, blue, black);
 }
 
+.container{
+    $fullhd;
+}
+
 #banner {
     max-width: 100%;
 }
