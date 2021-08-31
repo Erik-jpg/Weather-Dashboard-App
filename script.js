@@ -154,6 +154,7 @@ displayHistory();
 function preventDefault() {};
 
 //this is saving history of the searched cities
+//There is an Error that will not let li be printed with search history
 function handleHistory() {
   let searchHistory = JSON.parse(localStorage.getItem("historySearch")) || [];
   const cityName = document.querySelector('#cityInputBar').value;
@@ -165,6 +166,7 @@ function handleHistory() {
 };
 
 //This is to view the searched cities
+//There is an Error that will not let li be printed with search history
 function displayHistory() {
   const retrieveHistory = JSON.parse(localStorage.getItem("historySearch")) || [];
   document.querySelector("#historyKey").innerHTML = "";
@@ -178,6 +180,7 @@ function displayHistory() {
 }
 
 // This is to check to see if the user has any previous history
+//There is an Error that will not let li be printed with search history
 function checkForHistory() {
   if (localStorage.getItem("historySearch")!== null) {
     const city = localStorage.getItem("cityName");
