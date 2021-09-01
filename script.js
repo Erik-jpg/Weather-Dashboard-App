@@ -4,13 +4,14 @@ const clearHistBtn = document.querySelector("#clearHistBtn");
 const statusMessage = document.querySelector("#statusMessage");
 const searchHistory = document.querySelector("search-history");
 
+let todayTitle = document.createElement("h2");
 
 let todayUV = document.createElement("h6");
 let toDayTemp = document.createElement("h6");
 
 const APIKey = "d888e695283db928ef9b9fd7d40936fc";
 
-const generateMeteorologist = () => {
+const generateMeteorologist = (data) => {
   // e.preventDefault()
   console.log(cityInputBar.value);
   const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}`;
@@ -42,7 +43,7 @@ const generateMeteorologist = () => {
       let todayImg = document.createElement("img");
       let todayHum = document.createElement("h6");
       let todayWind = document.createElement("h6");
-      let todayTitle = document.createElement("h2");
+      
       let todayWeatherNow = document.createElement("h3");
 
       todayCard.classList = "card";
@@ -60,8 +61,6 @@ const generateMeteorologist = () => {
       todayHum.textContent = data.main.humidity;
       todayWind.textContent = data.wind.speed + "MPH" + "windspeed";
       
-      
-      //have to figure out a way to add UV index, Mac said something about second access, using lat & long to get UV
       //fetches weather icon
 
       todayImg.setAttribute(
@@ -78,16 +77,10 @@ const generateMeteorologist = () => {
       todayBody.append(todayUV);
       todayCard.append(todayBody);
       today.append(todayCard);
-
-      // if (historySearch.indexOf(searchHistory) === -1) {
-      //   let historySearch = JSON.parse(localStorage.getItem(city)) || [];
-      //   const city = localStorage.getItem(city);
-      //   historySearch.push(city);
-      //   localStorage.setItem(historySearch, JSON.stringify(city));
-      //   console.log("history saved");
-      // }
     });
 };
+
+
 
 function fiveDayForcast(latitude, longitude) {
   const weeklyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&appid=${APIKey}&units=imperial`;
@@ -148,49 +141,46 @@ return response.json();
       }
     });
 }
-
-displayHistory();
-
-function preventDefault() {};
-
-//this is saving history of the searched cities
-//There is an Error that will not let li be printed with search history
-function handleHistory() {
-  let searchHistory = JSON.parse(localStorage.getItem("historySearch")) || [];
-  const cityName = document.querySelector('#cityInputBar').value;
-  const historyObject = {city:cityName};
-  searchHistory.push(historyObject);
-  localStorage.setItem("historySearch", JSON.stringify(searchHistory));
-  
-  console.log('History saved');
-};
-
-//This is to view the searched cities
-//There is an Error that will not let li be printed with search history
-function displayHistory() {
-  const retrieveHistory = JSON.parse(localStorage.getItem("historySearch")) || [];
-  document.querySelector("#historyKey").innerHTML = "";
-  for (let i =0; i < retrieveHistory.length; i++){
-    const element = retrieveHistory[i];
-    let li = document.createElement("li");
-    li.textContent = element.retrieveHistory;
-    document.querySelector("#historyKey").append(li);
-    console.log('viewing history');
-  }
+const checkHistory = () => {
+if(!localStorage.getItem('searchHistory')) {
+  // todayTitle.textContent = data.name; 
+  const historyArr = [todayTitle];
+  localStorage.setItem('searchHistory', JSON.stringify(historyArr));
+  const h2History = document.createElement('li');
+  h2History.classList.add('historyKey');
+  h2History.textContent = todayTitle;
+  h2History.appendChild('historyKey');
+  h2History.addEventListener('click', (event) => {
+  cityInputBar = event.target.textContent;
+  const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}`;
+  generateMeteorologist(requestUrl);
+});
 }
-
-// This is to check to see if the user has any previous history
-//There is an Error that will not let li be printed with search history
-function checkForHistory() {
-  if (localStorage.getItem("historySearch")!== null) {
-    const city = localStorage.getItem("cityName");
-    historySearch.value = "your, " + city;
-  }
 }
+const addToStorage = () => {
+ historyArr = JSON.parse(localStorage.getItem('searchHistory'));
+
+ while (historyArr[historyArr.length - 1] !== todayTitle && historyArr.length) 
+ if (!historyArr.length) {
+   const newHistoryArr = JSON.parse(localStorage.getItem('searchHistory'));
+   newHistoryArr.push(h2History)
+ } else {
+  return;
+}
+}
+addToStorage();
+
+
+// const addToHistory = () => {
+//   if (localStorage.getItem('searchHistory')) {
+
+//   }
+// }
 
 function deleteHistory() {
-  localStorage.clear();
-}
+  localStorage.clear(todayTitle);
+  localStorage.setItem('searchHistory', JSON.stringify(newHistoryArr));
+} 
 
 
 searchBtn.addEventListener("click", everythingToDo);
@@ -199,8 +189,7 @@ clearHistBtn.addEventListener('click', deleteHistory);
 
 function everythingToDo() {
   generateMeteorologist();
-  handleHistory();
-  displayHistory();
-  // checkForHistory();
-  preventDefault();
+  addToStorage();
+  // preventDefault();
+  checkHistory();
 }
