@@ -5,36 +5,32 @@ const statusMessage = document.querySelector("#statusMessage");
 const searchHistory = document.querySelector("search-history");
 
 let todayTitle = document.createElement("h2");
-
 let todayUV = document.createElement("h6");
 let toDayTemp = document.createElement("h6");
 
 const APIKey = "d888e695283db928ef9b9fd7d40936fc";
 
 const generateMeteorologist = (data) => {
-  // e.preventDefault()
-  console.log(cityInputBar.value);
   const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}`;
   fetch(requestUrl)
     .then((response) => {
-      if (response.status === 404) {
-        const errorMessage = document.createElement("h1");
-        errorMessage.id = "errorMessage";
-        errorMessage.textContent =
-          "There seems to have been an error, please re-enter a city.";
-        statusMessage.appendChild(errorMessage);
-        return;
+      if (response.status === 400 || 404) {
+        alert("There seems to have been an error, please re-enter a city.");
+        // const error = document.createElement("h1");
+        // errorMessage = "errorMessage";
+        // errorMessage.textContent =
+        //   ;
+        // error.append(errorMessage);console.log("ok");
+        // return;
       }
       return response.json();
     })
     .then((data) => {
-      console.log(data);
-
       const coordinates = data.coord;
       const Latitude = coordinates.lat;
       const Longitude = coordinates.lon;
       fiveDayForcast(Latitude, Longitude);
-
+      console.log(data);
       let today = document.querySelector("#currentDay");
       today.innerHTML = "";
 
@@ -43,7 +39,6 @@ const generateMeteorologist = (data) => {
       let todayImg = document.createElement("img");
       let todayHum = document.createElement("h6");
       let todayWind = document.createElement("h6");
-      
       let todayWeatherNow = document.createElement("h3");
 
       todayCard.classList = "card";
@@ -52,7 +47,6 @@ const generateMeteorologist = (data) => {
       todayWind.classList = "card-text";
       todayHum.classList = "card-text";
       todayUV.classList = "card-text";
-      console.log("card-text", todayTitle);
       todayTitle.classList = "container card-text";
       todayWeatherNow.classList = "card-text";
 
@@ -61,8 +55,6 @@ const generateMeteorologist = (data) => {
       todayHum.textContent = data.main.humidity;
       todayWind.textContent = data.wind.speed + "MPH" + "windspeed";
       
-      //fetches weather icon
-
       todayImg.setAttribute(
         "src",
         `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
@@ -80,13 +72,11 @@ const generateMeteorologist = (data) => {
     });
 };
 
-
-
 function fiveDayForcast(latitude, longitude) {
   const weeklyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&appid=${APIKey}&units=imperial`;
   fetch(weeklyUrl)
     .then(function (response) {
-      console.log("ok");
+      
 return response.json();
     })
     .then(function (data) {
@@ -125,9 +115,8 @@ return response.json();
         fiveDayImg.setAttribute(
           "src",
           `https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`
-          
-        );
-        console.log("fiveDayImg");
+        );console.log("fiveDayImg");
+        
 
         // todayBody.appendChild(today);
         fiveDayCard.append(fiveDayBody);
@@ -141,47 +130,51 @@ return response.json();
       }
     });
 }
-const checkHistory = () => {
-if(!localStorage.getItem('searchHistory')) {
-  // todayTitle.textContent = data.name; 
-  const historyArr = [todayTitle];
-  localStorage.setItem('searchHistory', JSON.stringify(historyArr));
+
+function addToStorage() {
+if(localStorage.getItem('cachedHistory') || []) {
+  const historyArr = [cityInputBar.value];
+  localStorage.setItem('cachedHistory', JSON.stringify(historyArr));
+  console.log(localStorage.getItem('cachedHistory'));
   const h2History = document.createElement('li');
-  h2History.classList.add('historyKey');
-  h2History.textContent = todayTitle;
-  h2History.appendChild('historyKey');
+  h2History.classList.add('button');
+  h2History.textContent = historyArr;
+  h2History.append('historyKey');
+  // historyKey.push(historyArr);
   h2History.addEventListener('click', (event) => {
-  cityInputBar = event.target.textContent;
-  const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}`;
-  generateMeteorologist(requestUrl);
+  // cityInputBar = event.target.textContent;
+  //should I change the name of this request, so it doesn't fire when original search is clicked?
+  const weatherHistory = `https://api.openweathermap.org/data/2.5/weather?q=${h2History.value}&appid=${APIKey}`;
+  generateMeteorologist(weatherHistory);
 });
 }
-}
-const addToStorage = () => {
- historyArr = JSON.parse(localStorage.getItem('searchHistory'));
 
+}
+function checkHistory(){
+ historyArr = JSON.parse(localStorage.getItem('cachedHistory'));
+ console.log(localStorage);
  while (historyArr[historyArr.length - 1] !== todayTitle && historyArr.length) 
  if (!historyArr.length) {
-   const newHistoryArr = JSON.parse(localStorage.getItem('searchHistory'));
-   newHistoryArr.push(h2History)
+   const newHistoryArr = JSON.parse(localStorage.getItem('cachedHistory'));
+   localStorage.setItem('cachedHistory', JSON.stringify(newHistoryArr));
+   newHistoryArr.push(historyArr)
  } else {
-  return;
+  return; 
 }
 }
-addToStorage();
 
+// addToStorage();
 
 // const addToHistory = () => {
-//   if (localStorage.getItem('searchHistory')) {
+//   if (localStorage.getItem('cachedHistory')) {
 
 //   }
 // }
 
 function deleteHistory() {
   localStorage.clear(todayTitle);
-  localStorage.setItem('searchHistory', JSON.stringify(newHistoryArr));
+  
 } 
-
 
 searchBtn.addEventListener("click", everythingToDo);
 
@@ -189,7 +182,8 @@ clearHistBtn.addEventListener('click', deleteHistory);
 
 function everythingToDo() {
   generateMeteorologist();
-  addToStorage();
-  // preventDefault();
-  checkHistory();
+  
+  // console.log(localStorage.getItem('cachedHistory'));
+  addToStorage
+  checkHistory
 }
