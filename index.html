@@ -23,25 +23,39 @@
                         <button id="searchBtn" type="button">Search</button>
                     </div>
                     <button type="button" id="clearHistBtn">Delete Search History</button>
-                    <form id="search-history"></form>
+                    
                 </div>
             </div>
         </div>
     </div>
-    <div class="container" id="currentDay"></div>
+    <div class="container" id="currentDay">
+        <span id="cityName" class="display"></span>
+        <div class="cardDetails">
+            <p id="temp"></p>
+        </div>
+        <div class="cardDetails">
+            <p id="hum"></p>
+        </div> 
+        <div class="cardDetails">
+            <p id="windspeed"></p>
+        </div>
+        <div class="cardDetails">
+            <p id="UV"></p>
+        </div>           
+    </div>
     <hr>
     <h3>Five Day Forecast</h3>
 
-    <div class="card fiveDayForecast" id="weekCard">
-        <div class="card" id="dayOne"></div>
+    <div class="fiveDayForecast" id="weekCard">
+        <!-- <div class="card" id="dayOne"></div>
         <div class="card" id="dayTwo"></div>
         <div class="card" id="dayThree"></div>
         <div class="card" id="dayFour"></div>
-        <div class="card" id="dayFive"></div>
+        <div class="card" id="dayFive"></div> -->
     </div>
     <ul class="card" id="weatherCards">
     </ul>
-
+    <form id="searchHistory"></form>
     <ul class="card" id="historyKey">
     </ul>
 

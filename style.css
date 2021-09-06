@@ -1,12 +1,13 @@
 
 
-.card-body{
-    width: 25px;
+/* .card-body{
+    width: 50%;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
-}
+    text-align: center;
+} */
 .container{
-    width: 25px;
+    width: auto;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
 }
@@ -19,27 +20,29 @@
     text-align: center;
     height: 75px;
     font-size: 50px;
+    text-align: 50%;
 }
 
 #cityInputBar{
     text-align: center;
-    margin-left: 600px;
+    margin-left: auto;
     margin-right: auto;
 }
 
 #clearHistBtn{
     margin-right: center;
-    margin-left: 600px;
+    margin-left: auto;
 }
 
 #search-box {
     background-image: linear-gradient(to right, lightblue, lightgreen);
+    text-align: center;
 }
 
 #searchBtn{
     width: 60px;
     height: 25px;
-    margin-left: 650px;
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -52,24 +55,24 @@
 #currentDay{
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
+    width: auto;
 }
 
 .fiveDayForecast {
     padding: 5rem;
     border: 5px solid black;
     margin: 50px;
-    max-width: 25px;
+    max-width: 50%;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
+    text-align: center;
         }
 
-#dayOne {
-    padding: 5rem;
-    border: 5px solid black;
-    margin: 50px;
-    max-width: 25px;
+.card {
+    width: 50%;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
+    text-align: center;
 }        
 
 
