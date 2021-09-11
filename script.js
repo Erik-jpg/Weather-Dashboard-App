@@ -29,7 +29,7 @@ const generateMeteorologist = (data) => {
       console.log(data);
       let today = document.querySelector("#currentDay");
       today.innerHTML = "";
-      const currentDate = new Date(data.dt*1000);
+      const currentDate = new Date(data.getDate);
       console.log(currentDate);
       const day = currentDate.getDate();
       const month = currentDate.getMonth() + 1;
@@ -86,6 +86,7 @@ return response.json();
       const fiveDayCard = document.querySelector('.fiveDayForecast');
       for (let i = 0; i < fiveDayCard.length; i++) {
         fiveDayCard[i].innerHTML = "";
+        console.log(data);
         const fiveDayIndex = i*8 + 4;
         const fiveDayDate = new Date(response.data.list[fiveDayIndex]);
         const fiveDayDay = fiveDayDate.getDate();
@@ -183,7 +184,7 @@ searchBtn.addEventListener("click", function() {
   generateMeteorologist(searchedCity);
   searchHistory.push(searchedCity);
   localStorage.setItem("search", JSON.stringify(searchHistory));
-  fiveDayForcast();
+  
 });
 
 clearHistBtn.addEventListener('click', function(){
