@@ -13,7 +13,7 @@ let toDayTemp = document.createElement("h6");
 const APIKey = "d888e695283db928ef9b9fd7d40936fc";
 
 const generateMeteorologist = (data) => {
-  const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}`;
+  const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}&units=imperial`;
   fetch(requestUrl)
     .then((response) => {
       if (!response.status === 200) {
@@ -29,7 +29,9 @@ const generateMeteorologist = (data) => {
       console.log(data);
       let today = document.querySelector("#currentDay");
       today.innerHTML = "";
+
       const currentDate = new Date(data.getDate);
+
       console.log(currentDate);
       const day = currentDate.getDate();
       const month = currentDate.getMonth() + 1;
@@ -55,7 +57,7 @@ const generateMeteorologist = (data) => {
       todayTitle.textContent = data.name;
       todayWeatherNow.textContent = data.weather[0].description;
       todayHum.textContent = data.main.humidity + "Humidity";
-      todayWind.textContent = data.wind.speed + "MPH" + "windspeed";
+      todayWind.textContent = data.wind.speed + " MPH" + "windspeed";
       
       todayImg.setAttribute(
         "src",
@@ -84,18 +86,30 @@ return response.json();
     .then(function (data) {
       console.log(data);
       const fiveDayCard = document.querySelector('.fiveDayForecast');
-      for (let i = 0; i < fiveDayCard.length; i++) {
-        fiveDayCard[i].innerHTML = "";
+      fiveDayCard.innerHTML = "";
+      for (let i = 0; i < 5; i++) {
         console.log(data);
-        const fiveDayIndex = i*8 + 4;
-        const fiveDayDate = new Date(response.data.list[fiveDayIndex]);
-        const fiveDayDay = fiveDayDate.getDate();
-        const fiveDayMonth = fiveDayDate.getMonth();
-        const fiveDayYear = fiveDayDate.getFullYear();
+        // const fiveDayDate = new Date(data.daily[i]);
+        const fiveDayDate = function timeConverter(UNIX_timestamp){
+          var a = new Date(UNIX_timestamp * 1000);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          var year = a.getFullYear();
+          var month = months[a.getMonth()];
+          var date = a.getDate();
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          var sec = a.getSeconds();
+          var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+          return time;
+        }
+        // const fiveDayDay = fiveDayDate.getDate();
+        // const fiveDayMonth = fiveDayDate.getMonth();
+        // const fiveDayYear = fiveDayDate.getFullYear();
+         
         const fiveDayDateEL = document.createElement("p");
         fiveDayDateEL.setAttribute("class", "fiveDayDate");
-        fiveDayDateEL.innerHTML = fiveDayMonth + '/' + fiveDayDay + '/' + fiveDayYear;
-        fiveDayCard[i].append(fiveDayDateEL);
+        fiveDayDateEL.innerHTML = fiveDayDate;
+        fiveDayCard[i].append(fiveDayDateEl);
         const fiveDayImg = document.createElement('img');
         fiveDayImg.setAttribute("src", `https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
         fiveDayImg.setAttribute("alt", response.data.list[fiveDayIndex].weather[0].description);
@@ -155,16 +169,21 @@ return response.json();
     });
 }
 
-function addToStorage() {
-  historyEl.innerText="";
+function addToFrontEnd() {
+  // historyEl.innerText="";
+  if (searchHistory === []) {
+  return;
+  } else {
   for (var i = 0; i < searchHistory.length; i++) {
-    const historyKey = document.querySelector("#cityInputBar");
+    const historyKey = document.createElement("button");
     historyKey.setAttribute("value", searchHistory[i]);
     historyKey.addEventListener("click", function(){
       generateMeteorologist(historyKey.value);
       console.log(localStorage.getItem('historyKey'));
+      historyEl.append(historyKey);
     })
-    historyEl.append(historyKey);
+    
+    }
   }
 }
 
@@ -184,7 +203,7 @@ searchBtn.addEventListener("click", function() {
   generateMeteorologist(searchedCity);
   searchHistory.push(searchedCity);
   localStorage.setItem("search", JSON.stringify(searchHistory));
-  
+  addToFrontEnd()
 });
 
 clearHistBtn.addEventListener('click', function(){
@@ -193,6 +212,7 @@ clearHistBtn.addEventListener('click', function(){
 
 });
 
+addToFrontEnd();
 // function everythingToDo() {
   
   
