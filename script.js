@@ -30,16 +30,15 @@ const generateMeteorologist = (data) => {
       let today = document.querySelector("#currentDay");
       today.innerHTML = "";
 
-      const currentDate = new Date(data.getDate);
+      let UTCTimeStamp = data.dt;
+      const milliseconds = UTCTimeStamp * 1000;
+      const dateObject = new Date(milliseconds);
+      const humanDateFormat = dateObject.toLocaleString();
+      console.log(humanDateFormat);
 
-      console.log(currentDate);
-      const day = currentDate.getDate();
-      const month = currentDate.getMonth() + 1;
-      const year = currentDate.getFullYear();
-      cityName.innerHTML = data.name + " (" + month + "/" + day + "/" + year + ") "; 
-      
       let todayCard = document.createElement("div");
       let todayBody = document.createElement("div");
+      let todayDate = document.createElement("h3");
       let todayImg = document.createElement("img");
       let todayHum = document.createElement("h6");
       let todayWind = document.createElement("h6");
@@ -47,6 +46,7 @@ const generateMeteorologist = (data) => {
 
       todayCard.classList = "card";
       todayBody.classList = "card-body";
+      todayDate.classList = "card-text";
       toDayTemp.classList = "card-text";
       todayWind.classList = "card-text";
       todayHum.classList = "card-text";
@@ -55,6 +55,7 @@ const generateMeteorologist = (data) => {
       todayWeatherNow.classList = "card-text";
 
       todayTitle.textContent = data.name;
+      todayDate.textContent = humanDateFormat;
       todayWeatherNow.textContent = data.weather[0].description;
       todayHum.textContent = data.main.humidity + "Humidity";
       todayWind.textContent = data.wind.speed + " MPH" + "windspeed";
@@ -63,7 +64,7 @@ const generateMeteorologist = (data) => {
         "src",
         `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
       );
-      
+      todayBody.append(todayDate);
       todayBody.append(todayImg);
       todayBody.append(todayTitle);
       todayBody.append(todayWeatherNow);
@@ -89,38 +90,39 @@ return response.json();
       fiveDayCard.innerHTML = "";
       for (let i = 0; i < 5; i++) {
         console.log(data);
-        // const fiveDayDate = new Date(data.daily[i]);
-        const fiveDayDate = function timeConverter(UNIX_timestamp){
-          var a = new Date(UNIX_timestamp * 1000);
-          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-          var year = a.getFullYear();
-          var month = months[a.getMonth()];
-          var date = a.getDate();
-          var hour = a.getHours();
-          var min = a.getMinutes();
-          var sec = a.getSeconds();
-          var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-          return time;
-        }
+       
         // const fiveDayDay = fiveDayDate.getDate();
         // const fiveDayMonth = fiveDayDate.getMonth();
         // const fiveDayYear = fiveDayDate.getFullYear();
          
-        const fiveDayDateEL = document.createElement("p");
-        fiveDayDateEL.setAttribute("class", "fiveDayDate");
-        fiveDayDateEL.innerHTML = fiveDayDate;
-        fiveDayCard[i].append(fiveDayDateEl);
+        
+        
+        // const fiveDayCard = document.createElement("fiveDayForecast");
+        // document.fiveDayCard.append(fiveDayDateEL);
+        let UTCTimeStamp = data.daily[i].dt;
+        const milliseconds = UTCTimeStamp * 1000;
+        const dateObject = new Date(milliseconds);
+        const fiveDateFormat = dateObject.toLocaleString();
+        console.log(fiveDateFormat);
+
+        const fiveDayDateEl = document.createElement("p").classList.add('fiveDayDateEl');
+        document.querySelector('.fiveDayDateEl');
+        fiveDayDateEl.textContent = fiveDateFormat;
+        fiveDayCard.append(fiveDayDateEl);
         const fiveDayImg = document.createElement('img');
         fiveDayImg.setAttribute("src", `https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
         fiveDayImg.setAttribute("alt", response.data.list[fiveDayIndex].weather[0].description);
-        fiveDayCard[i].append(fiveDayDateEL);
+        fiveDayCard[i].append(fiveDayDateImg);
         const fiveDayTemp = document.createElement("p");
         fiveDayTemp.innerHTML = 'Temperature: ' + data.daily[i].temp.day;
         fiveDayCard[i].append(fiveDayTemp);
         const fiveDayHum = document.createElement("p");
-        fiveDayHum.innerHTML = "Humidity: " + data.daily[i].hum.day;
+        fiveDayHum.innerHTML = "Humidity: " + data.daily[i].humidity.day;
+        fiveDayCard[i].append(fiveDayHum);
         const fiveDayWind = document.createElement("p");
-        fiveDayWind.innerHTML = "wind Speed: " + data.daily[i].wind.speed;
+        fiveDayWind.innerHTML = "wind Speed: " + data.daily[i].wind_speed;
+        fiveDayCard[i].append(fiveDayWind);
+        document.body.appendChild(fiveDayCard);
         // let fiveDay = document.querySelector("#dayOne");
         // let fiveDayCard = document.createElement("div");
         // let fiveDayBody = document.createElement("div");
