@@ -12,7 +12,8 @@ let toDayTemp = document.createElement("h6");
 
 const APIKey = "d888e695283db928ef9b9fd7d40936fc";
 
-const generateMeteorologist = (data) => {
+// window.onload = 
+generateMeteorologist = (data) => {
   const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputBar.value}&appid=${APIKey}&units=imperial`;
   fetch(requestUrl)
     .then((response) => {
@@ -77,6 +78,7 @@ const generateMeteorologist = (data) => {
     });
 };
 
+// window.onload = 
 function fiveDayForcast(latitude, longitude) {
   const weeklyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&appid=${APIKey}&units=imperial`;
   fetch(weeklyUrl)
@@ -89,25 +91,21 @@ return response.json();
       const fiveDayCard = document.querySelector('.fiveDayForecast');
       fiveDayCard.innerHTML = "";
       for (let i = 0; i < 5; i++) {
+        data.daily.forEach(item => {
+          document.createElement("div");
+        });
         console.log(data);
        
-        // const fiveDayDay = fiveDayDate.getDate();
-        // const fiveDayMonth = fiveDayDate.getMonth();
-        // const fiveDayYear = fiveDayDate.getFullYear();
-         
-        
-        
-        // const fiveDayCard = document.createElement("fiveDayForecast");
-        // document.fiveDayCard.append(fiveDayDateEL);
         let UTCTimeStamp = data.daily[i].dt;
         const milliseconds = UTCTimeStamp * 1000;
         const dateObject = new Date(milliseconds);
         const fiveDateFormat = dateObject.toLocaleString();
-        console.log(fiveDateFormat);
-
+        // console.log(fiveDateFormat);
         const fiveDayDateEl = document.createElement("p").classList.add('fiveDayDateEl');
-        document.querySelector('.fiveDayDateEl');
-        fiveDayDateEl.textContent = fiveDateFormat;
+        //  const fiveDayDateEl = document.querySelector('.fiveDayDateEl');
+        // console.log(fiveDateDateEl);
+        fiveDayDateEl.innerText = fiveDateFormat;
+        
         fiveDayCard.append(fiveDayDateEl);
         const fiveDayImg = document.createElement('img');
         fiveDayImg.setAttribute("src", `https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
@@ -123,50 +121,10 @@ return response.json();
         fiveDayWind.innerHTML = "wind Speed: " + data.daily[i].wind_speed;
         fiveDayCard[i].append(fiveDayWind);
         document.body.appendChild(fiveDayCard);
-        // let fiveDay = document.querySelector("#dayOne");
-        // let fiveDayCard = document.createElement("div");
-        // let fiveDayBody = document.createElement("div");
-        // let fiveDayImg = document.createElement("img");
-        // let fiveDayTemp = document.createElement("h6");
-        // let fiveDayHum = document.createElement("h6");
-        // let fiveDayWind = document.createElement("h6");
-        // let fiveDayUV = document.createElement("h6");
-        // let fiveDayTitle = document.createElement("h2");
-        // let fiveDayWeatherNow = document.createElement("h3");
-        // let currentDateAndTime = document.createElement("h4");
-
-        // fiveDayCard.classList = "card";
-        // fiveDayBody.classList = "card-body";
-        // fiveDayTemp.classList = "card-text";
-        // fiveDayWind.classList = "card-text";
-        // fiveDayHum.classList = "card-text";
-        // fiveDayUV.classList = "card-text";
-        // fiveDayTitle.classList = "card-text";
-        // fiveDayWeatherNow.classList = "card-text";
-        // currentDateAndTime.classList = "card-text";
-
-        // fiveDayTitle.textContent = data.city.cityName;
-        // fiveDayTemp.textContent = data.daily[i].temp.day + "Temperature";
-        // fiveDayHum.textContent = data.daily[i].humidity + "Humidity";
-        // fiveDayWind.textContent = data.daily[i].wind_speed + "Wind Speed";
         todayUV.textContent = data.current.uvi + "UVIndex";
         toDayTemp.textContent = data.daily[0].temp.day + "Today's Current Temperature";
 
-        // fiveDayImg.setAttribute(
-        //   "src",
-          
-        // );console.log("fiveDayImg");
         
-
-        // todayBody.appendChild(today);
-        // fiveDayCard.append(fiveDayBody);
-        // fiveDay.append(fiveDayTitle);
-        // fiveDay.append(currentDateAndTime);
-        // fiveDayTitle.append(fiveDayImg);
-        // fiveDay.append(fiveDayTemp);
-        // fiveDay.append(fiveDayHum);
-        // fiveDay.append(fiveDayWind);
-        // fiveDay.append(fiveDayUV);
       }
     });
 }
@@ -215,10 +173,3 @@ clearHistBtn.addEventListener('click', function(){
 });
 
 addToFrontEnd();
-// function everythingToDo() {
-  
-  
-//   // 
-//   addToStorage
-//   checkHistory
-// }
