@@ -88,8 +88,6 @@ return response.json();
     })
     .then(function (data) {
       console.log(data);
-      // const fiveDayCard = document.querySelector('.fiveDayForecast');
-      // fiveDayCard.innerHTML = "";
       for (let i = 0; i < 5; i++) {
         const fiveDayForecast = document.createElement("div");
         fiveDayForecast.setAttribute("id", "weekCard");
@@ -128,7 +126,6 @@ return response.json();
 }
 
 function addToFrontEnd() {
-  // historyEl.innerText="";
   if (searchHistory === []) {
   return;
   } else {

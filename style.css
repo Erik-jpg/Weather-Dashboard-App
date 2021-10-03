@@ -1,3 +1,6 @@
+body {
+background-color: lightblue;
+}
 
 .container{
     width: auto;
@@ -49,18 +52,20 @@
     width: auto;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
-    max-width: 50%;
+    max-width: 25%;
+
 }
 
 .fiveDayForecast {
     padding: 5rem;
     border: 5px solid black;
     margin: 50px;
-    max-width: 50%;
+    max-width: 15%;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
     text-align: center;
-        }
+}
+
 
 .card {
     width: auto;
@@ -69,6 +74,9 @@
     text-align: center;
 }        
 
+#weekCard {
+    flex-wrap: wrap;
+}
 
 
     @media (max-width:1400px) {
